@@ -13,7 +13,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D7CBB035-8CC0-4576-9C72-5076E079586B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>FusionSynth</RootNamespace>
+    <RootNamespace>FusionSynthV2</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -22,7 +22,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
-    <CLRSupport>true</CLRSupport>
+    <CLRSupport>false</CLRSupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
@@ -45,8 +45,6 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
     <IntDir>$(Configuration)\</IntDir>
-    <LibraryPath>$(LibraryPath)</LibraryPath>
-    <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -60,13 +58,13 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;SIMPLE_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(APPDATA)/Autodesk/Autodesk Fusion 360/API/CPP/include</AdditionalIncludeDirectories>
-      <AdditionalUsingDirectories>C:\Users\mad\Documents\FusionSynth\DebugSimulatorFileIO;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
+      <AdditionalUsingDirectories>\\Mac\Home\Documents\git\FusionSynth\DebugSimulatorFileIO;%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(APPDATA)/Autodesk/Autodesk Fusion 360/API/CPP/lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>core.lib;fusion.lib;cam.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>core.lib;fusion.lib;cam.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;Rpcrt4.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy /R /Y "$(SolutionDir)$(Configuration)\$(ProjectName).dll" "$(SolutionDir)"</Command>
@@ -95,27 +93,38 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BinaryRWObject.cpp" />
+    <ClCompile Include="BXDA.cpp" />
+    <ClCompile Include="CustomHandlers.cpp" />
     <ClCompile Include="EUI.cpp" />
-    <ClCompile Include="Exporter.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="FusionSynth.cpp">
+    <ClCompile Include="Exporter.cpp" />
+    <ClCompile Include="FusionSynthV2.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="LVector3.cpp" />
+    <ClCompile Include="Physics.cpp" />
+    <ClCompile Include="Submesh.cpp" />
+    <ClCompile Include="Surface.cpp" />
+    <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="FusionSynth.manifest">
+    <Text Include="FusionSynthV2.manifest">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryRWObject.h" />
+    <ClInclude Include="BXDA.h" />
+    <ClInclude Include="CustomHandlers.h" />
     <ClInclude Include="EUI.h" />
     <ClInclude Include="Exporter.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="DebugSimulatorFileIO\SimulatorAPI.dll" />
+    <ClInclude Include="LVector3.h" />
+    <ClInclude Include="Physics.h" />
+    <ClInclude Include="Submesh.h" />
+    <ClInclude Include="Surface.h" />
+    <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
